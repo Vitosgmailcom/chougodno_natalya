@@ -1,1 +1,17 @@
+name: My first test running in CI (Actions)
 
+on: workflow_dispatch
+
+jobs:
+  automated-api-tests-POSTMEN_COLLECTINS:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
+        run: |
+          postman collection run "25342497-66fc8bf2-99b5-4822-810c-e7e866c758f9" -e "25342497-03938390-bad8-4589-a121-f633e2d48043"
